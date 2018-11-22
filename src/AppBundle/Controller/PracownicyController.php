@@ -11,38 +11,6 @@ use AppBundle\Entity\Pracownik;
 
 class PracownicyController extends Controller {
 
-    public function registerAction() {
-        $pracownik = new Pracownik();
-        $form = $this->createForm(new PracownikType(), $pracownik, array(
-            'action' => $this->generateUrl('account_create'),
-        ));
-
-        return $this->render(
-                        'AppBundle:Pracownicy:register.html.twig', array('form' => $form->createView())
-        );
-    }
-
-    public function createAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-
-        $form = $this->createForm(new PracownikType(), new Pracownik());
-
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $pracownik = $form->getData();
-
-            $em->persist($pracownik->getUser());
-            $em->flush();
-
-            return $this->redirectToRoute('showPracownicy');
-        }
-
-        return $this->render(
-                        'AppBundle:Pracownicy:register.html.twig', array('form' => $form->createView())
-        );
-    }
-
     /**
      * @Route("/pracownicy", name="showPracownicy")
      */
