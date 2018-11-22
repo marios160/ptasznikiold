@@ -2,28 +2,10 @@
 # https://symfony.com/doc/current/security.html
 security:
 
-    encoders:
-         AppBundle\Entity\Pracownik:
-             algorithm: bcrypt
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        our_db_provider:
-             entity:
-                 class: AppBundle:Pracownik
-                 property: username
-                 # if you're using multiple entity managers
-                 # manager_name: customer
 
     firewalls:
-        login_firewall:
-             pattern:   ^/login$
-             anonymous: ~
-        register_firewall:
-             pattern:   ^/register$
-             anonymous: ~
-        secured_area:
-             pattern:    ^/
-             form_login: ~
         # disables authentication for assets and the profiler, adapt it according to your needs
         default:
              pattern:    ^/
@@ -41,10 +23,4 @@ security:
             #http_basic: ~
 
             # https://symfony.com/doc/current/security/form_login_setup.html
-            form_login: 
-                login_path: /login
-                check_path: /login_check
-    access_control:
-        - { path: ^/login,  roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register,  roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, roles: ROLE_ADMIN }
+            #form_login: 
