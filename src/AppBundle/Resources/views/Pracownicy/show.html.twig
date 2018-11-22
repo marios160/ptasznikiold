@@ -1,0 +1,31 @@
+{# tabela z pracownikami #}
+{% extends 'base.html.twig' %}
+{% block title %}Lista pracowników{% endblock %}
+
+{% block body %}
+    <button onclick="location.href = '{{path('addPracownik')}}'">Dodaj pracownika</button>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Imie</th>
+            <th>Nazwisko</th>
+            <th>Numer telefonu</th>
+            <th>E-mail</th>
+            <th>Stanowisko</th>
+            <th>Usuń</th>
+            <th>Edytuj</th>
+        </tr>
+        {% for item in pracownicy %}
+            <tr>
+                <td>{{item.id}}</td>
+                <td>{{item.imie}}</td>
+                <td>{{item.nazwisko}}</td>
+                <td>{{item.nrTelefonu}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.stanowisko}}</td>
+                <td> <button onclick="location.href = '{{path('deletePracownik', {'id':item.id})}}'">Usuń</button></td>
+                <td> <button onclick="location.href = '{{path('editPracownik', {'id':item.id})}}'">Edytuj</button></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

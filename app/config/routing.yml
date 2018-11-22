@@ -1,0 +1,10 @@
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+account_register:
+    path:     /register
+    defaults: { _controller: AppBundle:Pracownicy:register }
+
+account_create:
+    path:     /register/create
+    defaults: { _controller: AppBundle:Pracownicy:create }

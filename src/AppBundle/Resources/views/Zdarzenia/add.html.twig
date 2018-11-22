@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Dodawanie zdarzenia{% endblock %}
+
+{% block body %}
+    <form action="{{path('addZapiszZdarzenie')}}" method="POST">
+        <div class="zapiszEdycje">
+        <table>
+            <tr>             
+                <th>Lp.</th>
+            <th>{#<a href="{{path('showZdarzenia', {'field':'kodEan'})}}">#}Typ zdarzenia{#</a>#}</th>
+            <th>{#<a href="{{path('showZdarzenia', {'field':'nazwaLacinska'})}}">#}Pracownik{#</a>#}</th>
+            <th>{#<a href="{{path('showZdarzenia', {'field':'nazwaPolska'})}}">#}Ptasznik{#</a>#}</th>
+            <th>{#<a href="{{path('showZdarzenia', {'field':'uwagi'})}}">#}Data{#</a>#}</th>
+            <th>{#<a href="{{path('showZdarzenia', {'field':'magazyn'})}}">#}Opis{#</a>#}</th>            </tr>
+            {% for i in 1..count %}
+                <tr>
+                    <td>{{i}}</td>
+                    <td>
+                        <select name="zdarzenie[{{i}}][typZdarzenia]">
+                            <option value="" selected></option>
+                            {% for typ in typZdarzenia %}
+                                <option value="{{typ.id}}" >{{typ.nazwa}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="zdarzenie[{{i}}][pracownik]">
+                                <option value="" selected></option>
+                            {% for pra in pracownicy %}
+                                <option value="{{pra.id}}">{{pra.imie ~ ' ' ~ pra.nazwisko}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td><input type="text" name="zdarzenie[{{i}}][ptasznik]" value="{{ptasznik}}"/></td>
+                    <td><input type="date" name="zdarzenie[{{i}}][data]" value="{{ "now"|date("Y-m-d") }}"/></td>
+                    <td><input type="text" name="zdarzenie[{{i}}][opis]" value=""/></td>
+
+                </tr>
+            {% endfor %}
+        </table>
+
+        
+            <button type="submit">Zapisz</button>
+        </div>
+    </form>
+{% endblock %}

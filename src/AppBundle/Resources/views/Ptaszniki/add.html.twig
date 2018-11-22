@@ -1,0 +1,62 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Dodawanie ptaszników{% endblock %}
+
+{% block body %}
+    <form action="{{path('addZapiszPtasznik')}}" method="POST">
+        <div class="zapiszEdycje">
+        <table>
+            <tr>             
+                <th>Lp.</th>
+                <th>{#<a href="{{path('showPtaszniki', {'field':'kodEan'})}}">#}Kod EAN{#</a>#}</th>
+                <th>{#<a href="{{path('showPtaszniki', {'field':'nazwaLacinska'})}}">#}Nazwa łacińska{#</a>#}</th>
+                <th>{#<a href="{{path('showPtaszniki', {'field':'nazwaPolska'})}}">#}Nazwa polska{#</a>#}</th>
+                <th>{#<a href="{{path('showPtaszniki', {'field':'uwagi'})}}">#}Uwagi{#</a>#}</th>
+                <th>{#<a href="{{path('showPtaszniki', {'field':'kodDostawy'})}}">#}Kod dostawy{#</a>#}</th>
+                <th>{#<a href="{{path('showPtaszniki', {'field':'magazyn'})}}">#}Magazyn{#</a>#}</th>
+                <th>{#<a href="{{path('showPtaszniki', {'field':'terrarium'})}}">#}Terrarium{#</a>#}</th>
+                <th>{#<a href="{{path('showPtaszniki', {'field':'zakupRozmiar'})}}">#}Rozmiar przy zakupie{#</a>#}</th>
+                <th>{#<a href="{{path('showPtaszniki', {'field':'aktualnyRozmiar'})}}">#}Aktualny rozmiar{#</a>#}</th>
+                <th>{#<a href="{{path('showPtaszniki', {'field':'plec'})}}">#}Płeć{#</a>#}</th>
+                <th>{#<a href="{{path('showPtaszniki', {'field':'lpWPartii'})}}">#}Lp. w partii{#</a>#}</th>
+                <th>{#<a href="{{path('showPtaszniki', {'field':'wydrukEtykiety'})}}">#}Wydruk etykiety{#</a>#}</th>
+            </tr>
+            {% for i in 1..10 %}
+                <tr>
+                    <td>{{i}}</td>
+                    <td><input type="text" name="ptasznik[{{i}}][kodEan]" value=""/></td>
+                    <td><input type="text" name="ptasznik[{{i}}][nazwaLacinska]" value=""/></td>
+                    <td><input type="text" name="ptasznik[{{i}}][nazwaPolska]" value=""/></td>
+                    <td><input type="text" name="ptasznik[{{i}}][uwagi]" value=""/></td>
+                    <td><input type="text" name="ptasznik[{{i}}][kodDostawy]" value=""/></td>
+                    <td>
+                        <select name="ptasznik[{{i}}][magazyn]">
+                            <option value="" selected></option>
+                            {% for mag in magazyny %}
+                                <option value="{{mag.id}}" >{{mag.nazwa}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="ptasznik[{{i}}][terrarium]">
+                                <option value="" selected></option>
+                            {% for ter in terraria %}
+                                <option value="{{ter.id}}">{{ter.nazwa}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td><input type="text" name="ptasznik[{{i}}][zakupRozmiar]" value=""/></td>
+                    <td><input type="text" name="ptasznik[{{i}}][aktualnyRozmiar]" value=""/></td>
+                    <td><input type="text" name="ptasznik[{{i}}][plec]" value=""/></td>
+                    <td><input type="text" name="ptasznik[{{i}}][lpWPartii]" value=""/></td>
+                    <td><input type="text" name="ptasznik[{{i}}][wydrukEtykiety]" value=""/></td>
+
+                </tr>
+            {% endfor %}
+        </table>
+
+        
+            <button type="submit">Zapisz</button>
+        </div>
+    </form>
+{% endblock %}
