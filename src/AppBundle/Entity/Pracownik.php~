@@ -27,15 +27,15 @@ class Pracownik{
       */
     protected $imie;
     /**
-      * @ORM\Column(type="string", length=9)
+      * @ORM\Column(type="string", length=9, nullable=true)
       */
     protected $nrTelefonu;
     /**
-      * @ORM\Column(type="string", length=30)
+      * @ORM\Column(type="string", length=30, nullable=true)
       */
     protected $email;
     /**
-      * @ORM\Column(type="string", length=50)
+      * @ORM\Column(type="string", length=50, nullable=true)
       */
     protected $stanowisko;
     

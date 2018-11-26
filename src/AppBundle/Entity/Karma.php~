@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Karma
@@ -31,21 +32,21 @@ class Karma
     /**
      * @var string
      *
-     * @ORM\Column(name="opis", type="string", length=255)
+     * @ORM\Column(name="opis", type="string", length=255, nullable=true)
      */
     private $opis;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="waga", type="integer")
+     * @ORM\Column(name="waga", type="integer", nullable=true)
      */
     private $waga;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="ilosc", type="integer")
+     * @ORM\Column(name="ilosc", type="integer", nullable=true)
      */
     private $ilosc;
 

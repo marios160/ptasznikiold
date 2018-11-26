@@ -3,6 +3,11 @@
 {% block title %}Lista terrariów{% endblock %}
 
 {% block body %}
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-notice">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
     <button onclick="location.href = '{{path('addTerrarium')}}'">Dodaj terrarium</button>
     <table>
         <tr>

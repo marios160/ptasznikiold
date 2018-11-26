@@ -11,11 +11,11 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\KarmaType;
 use AppBundle\Entity\Karma;
 /**
- * Description of KarmaController
+ * Description of KarmyController
  *
  * @author Mateusz Błaszczak
  */
-class KarmaController extends Controller{
+class KarmyController extends Controller{
     /**
      * @Route("/karmy", name="showKarmy")
      */

@@ -34,6 +34,12 @@ class Dostawa
      * @ORM\Column(name="faktura", type="string", length=30)
      */
     private $faktura;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="kod", type="string", length=30)
+     */
+    private $kod;
 
 
     /**
@@ -92,5 +98,29 @@ class Dostawa
     public function getFaktura()
     {
         return $this->faktura;
+    }
+
+    /**
+     * Set kod
+     *
+     * @param string $kod
+     *
+     * @return Dostawa
+     */
+    public function setKod($kod)
+    {
+        $this->kod = $kod;
+
+        return $this;
+    }
+
+    /**
+     * Get kod
+     *
+     * @return string
+     */
+    public function getKod()
+    {
+        return $this->kod;
     }
 }

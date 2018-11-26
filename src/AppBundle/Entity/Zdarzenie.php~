@@ -50,12 +50,12 @@ class Zdarzenie {
     protected $data;
      
     /**
-      * @ORM\Column(name="opis", type="string", length=255)
+      * @ORM\Column(name="opis", type="string", length=255, nullable=true)
       */
     protected $opis;
     
     /**
-      * @ORM\Column(name="rozmiar", type="string", length=100)
+      * @ORM\Column(name="rozmiar", type="string", length=100, nullable=true)
       */
     protected $rozmiar;
     /**
