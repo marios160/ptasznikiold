@@ -87,7 +87,7 @@ class ZdarzeniaController extends Controller {
         $karma = $this->getDoctrine()->
                         getRepository('AppBundle:Karma')->findAll();
         $count = 10;
-        if(!empty($request->get('ptasznik'))){
+        if (!empty($request->get('ptasznik'))) {
             $count = 1;
         }
         return $this->render('AppBundle:Zdarzenia:add.html.twig', array(
@@ -122,12 +122,18 @@ class ZdarzeniaController extends Controller {
                         getRepository('AppBundle:TypZdarzenia')->findAll();
         $pracownik = $this->getDoctrine()->
                         getRepository('AppBundle:Pracownik')->findAll();
+        $magazyn = $this->getDoctrine()->
+                        getRepository('AppBundle:Magazyn')->findAll();
+        $karma = $this->getDoctrine()->
+                        getRepository('AppBundle:Karma')->findAll();
         return $this->render('AppBundle:Zdarzenia:addMulti.html.twig', array(
                     'typZdarzenia' => $typZdarzenia,
                     'pracownicy' => $pracownik,
                     'ptasznik1' => $request->get('ptasznik1'),
-                    'ptasznik2' => $request->get('ptasznik2')
-                ));
+                    'ptasznik2' => $request->get('ptasznik2'),
+                    'magazyny' => $magazyn,
+                    'karmy' => $karma
+        ));
     }
 
     /**
@@ -173,7 +179,7 @@ class ZdarzeniaController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $typZdarzenia = $em->getRepository('AppBundle:TypZdarzenia')->find($p['typZdarzenia']);
             $pracownik = $em->getRepository('AppBundle:Pracownik')->find($p['pracownik']);
-            
+
             $ptasznik = $em->getRepository('AppBundle:Ptasznik')->findByKodEan($p['ptasznik']);
             if (!$ptasznik) {
                 throw $this->createNotFoundException(
@@ -207,7 +213,7 @@ class ZdarzeniaController extends Controller {
                 default:
                     break;
             }
-            
+
             $em->persist($zdarzenie);
             $em->flush();
         }
@@ -246,6 +252,27 @@ class ZdarzeniaController extends Controller {
             $zdarzenie->setPtasznik($el);
             $zdarzenie->setData(new \Datetime($p['data']));
             $zdarzenie->setOpis($p['opis']);
+            switch ($p['typZdarzenia']) {
+                case '1':
+                    $karma = $em->getRepository('AppBundle:Karma')->find($p['info']);
+                    $zdarzenie->setKarma($karma);
+                    break;
+                case '2':
+                    $zdarzenie->setRozmiar($p['info']);
+                    $el->setAktualnyRozmiar($p['info']);
+                    break;
+                case '3':
+                    $magazyn = $em->getRepository('AppBundle:Magazyn')->find($p['info']);
+                    $zdarzenie->setMagazyn($magazyn);
+                    $el->setMagazyn($magazyn);
+                    break;
+                case '4':
+                    $el->setAktualnyRozmiar("L1");
+                    break;
+
+                default:
+                    break;
+            }
             $em->persist($zdarzenie);
         }
         $em->flush();
