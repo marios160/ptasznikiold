@@ -1,0 +1,29 @@
+{# tabela z terrariami #}
+{% extends 'base.html.twig' %}
+{% block title %}Lista terrariów{% endblock %}
+
+{% block body %}
+    <button onclick="location.href = '{{path('addTerrarium')}}'">Dodaj terrarium</button>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nazwa</th>
+            <th>Opis</th>
+            <th>Pojemność</th>
+            <th>Rozmiar</th>
+            <th>Usuń</th>
+            <th>Edytuj</th>
+        </tr>
+        {% for item in terraria %}
+            <tr>
+                <td>{{item.id}}</td>
+                <td>{{item.nazwa}}</td>
+                <td>{{item.opis}}</td>
+                <td>{{item.pojemnosc}}</td>
+                <td>{{item.rozmiar}}</td>
+                <td> <button onclick="location.href = '{{path('deleteTerrarium', {'id':item.id})}}'">Usuń</button></td>
+                <td> <button onclick="location.href = '{{path('editTerrarium', {'id':item.id})}}'">Edytuj</button></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Terrarium
@@ -24,28 +25,28 @@ class Terrarium
     /**
      * @var string
      *
-     * @ORM\Column(name="nazwa", type="string", length=30)
+     * @ORM\Column(name="nazwa", type="string", length=30 )
      */
     private $nazwa;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="opis", type="string", length=255)
+     * @ORM\Column(name="opis", type="string", length=255, nullable=true)
      */
     private $opis;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pojemnosc", type="string", length=20)
+     * @ORM\Column(name="pojemnosc", type="string", length=20, nullable=true)
      */
     private $pojemnosc;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="rozmiar", type="string", length=20)
+     * @ORM\Column(name="rozmiar", type="string", length=20, nullable=true)
      */
     private $rozmiar;
 
