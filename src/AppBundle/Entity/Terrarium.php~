@@ -54,8 +54,15 @@ class Terrarium
      */
     protected $ptaszniki;
     
+    /**
+     * * @ORM\OneToMany(targetEntity="Zdarzenie", mappedBy="terrarium")
+     */
+    protected $zdarzenia;
+
+    
      public function __construct()
      {
+         $this->zdarzenia = new ArrayCollection();
          $this->terraria = new ArrayCollection();
      }
     /**
@@ -196,5 +203,39 @@ class Terrarium
     public function getPtaszniki()
     {
         return $this->ptaszniki;
+    }
+
+    /**
+     * Add zdarzenium
+     *
+     * @param \AppBundle\Entity\Zdarzenie $zdarzenium
+     *
+     * @return Terrarium
+     */
+    public function addZdarzenium(\AppBundle\Entity\Zdarzenie $zdarzenium)
+    {
+        $this->zdarzenia[] = $zdarzenium;
+
+        return $this;
+    }
+
+    /**
+     * Remove zdarzenium
+     *
+     * @param \AppBundle\Entity\Zdarzenie $zdarzenium
+     */
+    public function removeZdarzenium(\AppBundle\Entity\Zdarzenie $zdarzenium)
+    {
+        $this->zdarzenia->removeElement($zdarzenium);
+    }
+
+    /**
+     * Get zdarzenia
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getZdarzenia()
+    {
+        return $this->zdarzenia;
     }
 }

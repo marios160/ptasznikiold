@@ -86,6 +86,8 @@ class ZdarzeniaController extends Controller {
                         getRepository('AppBundle:Magazyn')->findAll();
         $karma = $this->getDoctrine()->
                         getRepository('AppBundle:Karma')->findAll();
+        $terrarium = $this->getDoctrine()->
+                        getRepository('AppBundle:Terrarium')->findAll();
         $count = 10;
         if (!empty($request->get('ptasznik'))) {
             $count = 1;
@@ -96,6 +98,7 @@ class ZdarzeniaController extends Controller {
                     'magazyny' => $magazyn,
                     'karmy' => $karma,
                     'ptasznik' => $request->get('ptasznik'),
+                    'terraria' => $terrarium,
                     'count' => $count));
     }
 
@@ -126,13 +129,16 @@ class ZdarzeniaController extends Controller {
                         getRepository('AppBundle:Magazyn')->findAll();
         $karma = $this->getDoctrine()->
                         getRepository('AppBundle:Karma')->findAll();
+        $terrarium = $this->getDoctrine()->
+                        getRepository('AppBundle:Terrarium')->findAll();
         return $this->render('AppBundle:Zdarzenia:addMulti.html.twig', array(
                     'typZdarzenia' => $typZdarzenia,
                     'pracownicy' => $pracownik,
                     'ptasznik1' => $request->get('ptasznik1'),
                     'ptasznik2' => $request->get('ptasznik2'),
                     'magazyny' => $magazyn,
-                    'karmy' => $karma
+                    'karmy' => $karma,
+                    'terraria' => $terrarium
         ));
     }
 
@@ -192,6 +198,7 @@ class ZdarzeniaController extends Controller {
             $zdarzenie->setPtasznik($ptasznik[0]);
             $zdarzenie->setData(new \Datetime($p['data']));
             $zdarzenie->setOpis($p['opis']);
+            $zdarzenie->setRozmiar("");
             switch ($p['typZdarzenia']) {
                 case '1':
                     $karma = $em->getRepository('AppBundle:Karma')->find($p['info']);
@@ -209,7 +216,11 @@ class ZdarzeniaController extends Controller {
                 case '4':
                     $ptasznik[0]->setAktualnyRozmiar("L1");
                     break;
-
+                case '6':
+                    $terrarium = $em->getRepository('AppBundle:Terrarium')->find($p['info']);
+                    $zdarzenie->setTerrarium($terrarium);
+                    $ptasznik[0]->setTerrarium($terrarium);
+                    break;
                 default:
                     break;
             }
@@ -252,6 +263,7 @@ class ZdarzeniaController extends Controller {
             $zdarzenie->setPtasznik($el);
             $zdarzenie->setData(new \Datetime($p['data']));
             $zdarzenie->setOpis($p['opis']);
+            $zdarzenie->setRozmiar("");
             switch ($p['typZdarzenia']) {
                 case '1':
                     $karma = $em->getRepository('AppBundle:Karma')->find($p['info']);
@@ -268,6 +280,11 @@ class ZdarzeniaController extends Controller {
                     break;
                 case '4':
                     $el->setAktualnyRozmiar("L1");
+                    break;
+                case '6':
+                    $terrarium = $em->getRepository('AppBundle:Terrarium')->find($p['info']);
+                    $zdarzenie->setTerrarium($terrarium);
+                    $el->setTerrarium($terrarium);
                     break;
 
                 default:

@@ -55,6 +55,10 @@ class Zdarzenie {
     protected $opis;
     
     /**
+      * @ORM\Column(name="rozmiar", type="string", length=100)
+      */
+    protected $rozmiar;
+    /**
       * @ORM\ManyToOne(targetEntity="Magazyn", inversedBy="zdarzenia")
       * @ORM\JoinColumn(name="magazyn_id", referencedColumnName="id")
       */
@@ -64,11 +68,12 @@ class Zdarzenie {
       * @ORM\JoinColumn(name="karma_id", referencedColumnName="id")
       */
      protected $karma;
-     
     /**
-      * @ORM\Column(name="rozmiar", type="string", length=255)
+      * @ORM\ManyToOne(targetEntity="Terrarium", inversedBy="zdarzenia")
+      * @ORM\JoinColumn(name="terrarium_id", referencedColumnName="id")
       */
-    protected $rozmiar;
+     protected $terrarium;
+     
     
     
     
@@ -272,5 +277,29 @@ class Zdarzenie {
     public function getKarma()
     {
         return $this->karma;
+    }
+
+    /**
+     * Set terrarium
+     *
+     * @param \AppBundle\Entity\Terrarium $terrarium
+     *
+     * @return Zdarzenie
+     */
+    public function setTerrarium(\AppBundle\Entity\Terrarium $terrarium = null)
+    {
+        $this->terrarium = $terrarium;
+
+        return $this;
+    }
+
+    /**
+     * Get terrarium
+     *
+     * @return \AppBundle\Entity\Terrarium
+     */
+    public function getTerrarium()
+    {
+        return $this->terrarium;
     }
 }

@@ -94,6 +94,22 @@
                     {% endfor %}
                     tdInfo.appendChild(tdSel);
                     break;
+                case '6': //zmiana magazynu
+                    thInfo.innerHTML = 'Terrarium';
+                    var tdSel = document.createElement("select")
+                    tdSel.setAttribute("name", "zdarzenie[info]");
+                    var selOpt = document.createElement("option")
+                    selOpt.setAttribute("value", "");
+                    selOpt.setAttribute("selected", "selected");
+                    tdSel.appendChild(selOpt);
+                    {% for ter in terraria %}
+                        var selOpt = document.createElement("option");
+                        selOpt.setAttribute("value", "{{ter.id}}");
+                        selOpt.innerHTML = "{{ter.nazwa}}";
+                        tdSel.appendChild(selOpt);
+                    {% endfor %}
+                    tdInfo.appendChild(tdSel);
+                    break;
                 default:
                     thInfo.innerHTML = 'Info';
             }
