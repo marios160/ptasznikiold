@@ -44,7 +44,7 @@ class Zdarzenie {
      protected $ptasznik;
      
      /**
-      * @ORM\Column(name="data", type="datetime")
+      * @ORM\Column(name="data", type="date")
       * @Assert\NotBlank()
       */
     protected $data;
@@ -53,7 +53,25 @@ class Zdarzenie {
       * @ORM\Column(name="opis", type="string", length=255)
       */
     protected $opis;
-
+    
+    /**
+      * @ORM\ManyToOne(targetEntity="Magazyn", inversedBy="zdarzenia")
+      * @ORM\JoinColumn(name="magazyn_id", referencedColumnName="id")
+      */
+     protected $magazyn;
+    /**
+      * @ORM\ManyToOne(targetEntity="Karma", inversedBy="zdarzenia")
+      * @ORM\JoinColumn(name="karma_id", referencedColumnName="id")
+      */
+     protected $karma;
+     
+    /**
+      * @ORM\Column(name="rozmiar", type="string", length=255)
+      */
+    protected $rozmiar;
+    
+    
+    
     /**
      * Get id
      *

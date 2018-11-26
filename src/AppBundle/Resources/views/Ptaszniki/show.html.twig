@@ -78,8 +78,21 @@
             </tr>
         {% endfor %}
     </table>
+{% if maxPages > 1 %}
 
-</form>
+            <div class="paginating">
+                <select name="strona" onChange="window.location = this.options[this.selectedIndex].value">
+                    {% for i in 1..maxPages %}
+                        {%if i == thisPage %}
+                            <option value="{{path('showPtaszniki', {currentPage:i})}}" selected>{{ i }}</option>
+                        {% else %}
+                            <option value="{{path('showPtaszniki', {currentPage:i})}}">{{ i }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+
+        {% endif %}
 
 
 

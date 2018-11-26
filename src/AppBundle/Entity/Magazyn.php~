@@ -40,9 +40,15 @@ class Magazyn
      */
     protected $ptaszniki;
     
+    /**
+     * * @ORM\OneToMany(targetEntity="Zdarzenie", mappedBy="magazyn")
+     */
+    protected $zdarzenia;
+    
      public function __construct()
      {
          $this->ptaszniki = new ArrayCollection();
+         $this->zdarzenia = new ArrayCollection();
      }
 
     /**

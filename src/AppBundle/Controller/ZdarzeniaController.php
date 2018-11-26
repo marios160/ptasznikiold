@@ -82,6 +82,10 @@ class ZdarzeniaController extends Controller {
                         getRepository('AppBundle:TypZdarzenia')->findAll();
         $pracownik = $this->getDoctrine()->
                         getRepository('AppBundle:Pracownik')->findAll();
+        $magazyn = $this->getDoctrine()->
+                        getRepository('AppBundle:Magazyn')->findAll();
+        $karma = $this->getDoctrine()->
+                        getRepository('AppBundle:Karma')->findAll();
         $count = 10;
         if(!empty($request->get('ptasznik'))){
             $count = 1;
@@ -89,6 +93,8 @@ class ZdarzeniaController extends Controller {
         return $this->render('AppBundle:Zdarzenia:add.html.twig', array(
                     'typZdarzenia' => $typZdarzenia,
                     'pracownicy' => $pracownik,
+                    'magazyny' => $magazyn,
+                    'karmy' => $karma,
                     'ptasznik' => $request->get('ptasznik'),
                     'count' => $count));
     }
@@ -160,7 +166,6 @@ class ZdarzeniaController extends Controller {
         //echo$request->get('zdarzenia') ;
 
         foreach ($request->get('zdarzenie') as $p) {
-
 
             if (empty($p['typZdarzenia']) || empty($p['pracownik']) || empty($p['ptasznik'])) {
                 continue;

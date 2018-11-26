@@ -53,7 +53,25 @@ class Zdarzenie {
       * @ORM\Column(name="opis", type="string", length=255)
       */
     protected $opis;
-
+    
+    /**
+      * @ORM\ManyToOne(targetEntity="Magazyn", inversedBy="zdarzenia")
+      * @ORM\JoinColumn(name="magazyn_id", referencedColumnName="id")
+      */
+     protected $magazyn;
+    /**
+      * @ORM\ManyToOne(targetEntity="Karma", inversedBy="zdarzenia")
+      * @ORM\JoinColumn(name="karma_id", referencedColumnName="id")
+      */
+     protected $karma;
+     
+    /**
+      * @ORM\Column(name="rozmiar", type="string", length=255)
+      */
+    protected $rozmiar;
+    
+    
+    
     /**
      * Get id
      *
@@ -182,5 +200,77 @@ class Zdarzenie {
     public function getOpis()
     {
         return $this->opis;
+    }
+
+    /**
+     * Set rozmiar
+     *
+     * @param string $rozmiar
+     *
+     * @return Zdarzenie
+     */
+    public function setRozmiar($rozmiar)
+    {
+        $this->rozmiar = $rozmiar;
+
+        return $this;
+    }
+
+    /**
+     * Get rozmiar
+     *
+     * @return string
+     */
+    public function getRozmiar()
+    {
+        return $this->rozmiar;
+    }
+
+    /**
+     * Set magazyn
+     *
+     * @param \AppBundle\Entity\Magazyn $magazyn
+     *
+     * @return Zdarzenie
+     */
+    public function setMagazyn(\AppBundle\Entity\Magazyn $magazyn = null)
+    {
+        $this->magazyn = $magazyn;
+
+        return $this;
+    }
+
+    /**
+     * Get magazyn
+     *
+     * @return \AppBundle\Entity\Magazyn
+     */
+    public function getMagazyn()
+    {
+        return $this->magazyn;
+    }
+
+    /**
+     * Set karma
+     *
+     * @param \AppBundle\Entity\Karma $karma
+     *
+     * @return Zdarzenie
+     */
+    public function setKarma(\AppBundle\Entity\Karma $karma = null)
+    {
+        $this->karma = $karma;
+
+        return $this;
+    }
+
+    /**
+     * Get karma
+     *
+     * @return \AppBundle\Entity\Karma
+     */
+    public function getKarma()
+    {
+        return $this->karma;
     }
 }

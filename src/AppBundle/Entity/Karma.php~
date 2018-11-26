@@ -49,6 +49,16 @@ class Karma
      */
     private $ilosc;
 
+    
+    /**
+     * * @ORM\OneToMany(targetEntity="Zdarzenie", mappedBy="karma")
+     */
+    protected $zdarzenia;
+    
+    public function __construct()
+     {
+         $this->zdarzenia = new ArrayCollection();
+     }
 
     /**
      * Get id

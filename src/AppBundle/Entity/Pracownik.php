@@ -21,6 +21,7 @@ class Pracownik{
       * @ORM\Column(type="string", length=50)
       */
     protected $nazwisko;
+    
     /**
       * @ORM\Column(type="string", length=50)
       */

@@ -5,8 +5,12 @@
         <group>
             <file>file:/C:/ptaszniki/ptaszniki/web/css/main.css</file>
             <file>file:/C:/ptaszniki/ptaszniki/src/AppBundle/Resources/views/security/login.html.twig</file>
+            <file>file:/C:/ptaszniki/ptaszniki/src/AppBundle/Resources/views/Zdarzenia/show.html.twig</file>
+            <file>file:/C:/ptaszniki/ptaszniki/src/AppBundle/Resources/views/Ptaszniki/show.html.twig</file>
             <file>file:/C:/ptaszniki/ptaszniki/app/config/security.yml</file>
             <file>file:/C:/ptaszniki/ptaszniki/src/AppBundle/Resources/views/Pracownicy/register.html.twig</file>
+            <file>file:/C:/ptaszniki/ptaszniki/src/AppBundle/Resources/views/Zdarzenia/add.html.twig</file>
+            <file>file:/C:/ptaszniki/ptaszniki/src/AppBundle/Controller/ZdarzeniaController.php</file>
             <file>file:/C:/ptaszniki/ptaszniki/src/AppBundle/Entity/Pracownik.php</file>
             <file>file:/C:/ptaszniki/ptaszniki/src/AppBundle/Controller/SecurityController.php</file>
         </group>

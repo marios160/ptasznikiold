@@ -49,6 +49,16 @@ class Karma
      */
     private $ilosc;
 
+    
+    /**
+     * * @ORM\OneToMany(targetEntity="Zdarzenie", mappedBy="karma")
+     */
+    protected $zdarzenia;
+    
+    public function __construct()
+     {
+         $this->zdarzenia = new ArrayCollection();
+     }
 
     /**
      * Get id
@@ -154,5 +164,39 @@ class Karma
     public function getIlosc()
     {
         return $this->ilosc;
+    }
+
+    /**
+     * Add zdarzenium
+     *
+     * @param \AppBundle\Entity\Zdarzenie $zdarzenium
+     *
+     * @return Karma
+     */
+    public function addZdarzenium(\AppBundle\Entity\Zdarzenie $zdarzenium)
+    {
+        $this->zdarzenia[] = $zdarzenium;
+
+        return $this;
+    }
+
+    /**
+     * Remove zdarzenium
+     *
+     * @param \AppBundle\Entity\Zdarzenie $zdarzenium
+     */
+    public function removeZdarzenium(\AppBundle\Entity\Zdarzenie $zdarzenium)
+    {
+        $this->zdarzenia->removeElement($zdarzenium);
+    }
+
+    /**
+     * Get zdarzenia
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getZdarzenia()
+    {
+        return $this->zdarzenia;
     }
 }

@@ -40,9 +40,15 @@ class Magazyn
      */
     protected $ptaszniki;
     
+    /**
+     * * @ORM\OneToMany(targetEntity="Zdarzenie", mappedBy="magazyn")
+     */
+    protected $zdarzenia;
+    
      public function __construct()
      {
          $this->ptaszniki = new ArrayCollection();
+         $this->zdarzenia = new ArrayCollection();
      }
 
     /**
@@ -135,5 +141,39 @@ class Magazyn
     public function getPtaszniki()
     {
         return $this->ptaszniki;
+    }
+
+    /**
+     * Add zdarzenium
+     *
+     * @param \AppBundle\Entity\Zdarzenie $zdarzenium
+     *
+     * @return Magazyn
+     */
+    public function addZdarzenium(\AppBundle\Entity\Zdarzenie $zdarzenium)
+    {
+        $this->zdarzenia[] = $zdarzenium;
+
+        return $this;
+    }
+
+    /**
+     * Remove zdarzenium
+     *
+     * @param \AppBundle\Entity\Zdarzenie $zdarzenium
+     */
+    public function removeZdarzenium(\AppBundle\Entity\Zdarzenie $zdarzenium)
+    {
+        $this->zdarzenia->removeElement($zdarzenium);
+    }
+
+    /**
+     * Get zdarzenia
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getZdarzenia()
+    {
+        return $this->zdarzenia;
     }
 }
