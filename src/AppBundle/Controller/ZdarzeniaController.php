@@ -173,6 +173,7 @@ class ZdarzeniaController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $typZdarzenia = $em->getRepository('AppBundle:TypZdarzenia')->find($p['typZdarzenia']);
             $pracownik = $em->getRepository('AppBundle:Pracownik')->find($p['pracownik']);
+            
             $ptasznik = $em->getRepository('AppBundle:Ptasznik')->findByKodEan($p['ptasznik']);
             if (!$ptasznik) {
                 throw $this->createNotFoundException(
@@ -185,6 +186,28 @@ class ZdarzeniaController extends Controller {
             $zdarzenie->setPtasznik($ptasznik[0]);
             $zdarzenie->setData(new \Datetime($p['data']));
             $zdarzenie->setOpis($p['opis']);
+            switch ($p['typZdarzenia']) {
+                case '1':
+                    $karma = $em->getRepository('AppBundle:Karma')->find($p['info']);
+                    $zdarzenie->setKarma($karma);
+                    break;
+                case '2':
+                    $zdarzenie->setRozmiar($p['info']);
+                    $ptasznik[0]->setAktualnyRozmiar($p['info']);
+                    break;
+                case '3':
+                    $magazyn = $em->getRepository('AppBundle:Magazyn')->find($p['info']);
+                    $zdarzenie->setMagazyn($magazyn);
+                    $ptasznik[0]->setMagazyn($magazyn);
+                    break;
+                case '4':
+                    $ptasznik[0]->setAktualnyRozmiar("L1");
+                    break;
+
+                default:
+                    break;
+            }
+            
             $em->persist($zdarzenie);
             $em->flush();
         }

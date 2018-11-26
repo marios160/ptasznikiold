@@ -14,11 +14,14 @@ class ZdarzenieRepository extends \Doctrine\ORM\EntityRepository
     
     public function findBySession($session, $currentPage = 1, $limit) {
         $query = "SELECT z.id, t.nazwa as typZdarzenia, "
-                . "CONCAT(p.imie,' ',p.nazwisko) as pracownik , pt.kodEan as ptasznik, z.data, z.opis"
+                . "CONCAT(p.imie,' ',p.nazwisko) as pracownik , pt.kodEan as ptasznik, z.data, z.opis,"
+                . " m.nazwa as magazyn, k.nazwa as karma, z.rozmiar"
                 . " FROM AppBundle:Zdarzenie z "
                 . "LEFT JOIN AppBundle:TypZdarzenia t WITH z.typZdarzenia=t.id"
                 . " LEFT JOIN AppBundle:Pracownik p WITH z.pracownik=p.id"
-                . " LEFT JOIN AppBundle:Ptasznik pt WITH z.ptasznik=pt.id";
+                . " LEFT JOIN AppBundle:Ptasznik pt WITH z.ptasznik=pt.id"
+                . " LEFT JOIN AppBundle:Magazyn m WITH z.magazyn=m.id"
+                . " LEFT JOIN AppBundle:Karma k WITH z.karma=k.id";
         if ($session->get('find')) {
             $find = trim($session->get('find'));
             $query .= " WHERE pt.id LIKE '%$find%' OR "
@@ -41,6 +44,13 @@ class ZdarzenieRepository extends \Doctrine\ORM\EntityRepository
                     . "p.stanowisko LIKE '%$find%' OR "
                     . "z.data LIKE '%$find%' OR "
                     . "z.opis LIKE '%$find%'"
+                    . "m.nazwa LIKE '%$find%'"
+                    . "m.nazwaSkrocona LIKE '%$find%'"
+                    . "k.nazwa LIKE '%$find%'"
+                    . "k.opis LIKE '%$find%'"
+                    . "k.waga LIKE '%$find%'"
+                    . "k.ilosc LIKE '%$find%'"
+                    . "z.rozmiar LIKE '%$find%'"
                     ;
         }
 
