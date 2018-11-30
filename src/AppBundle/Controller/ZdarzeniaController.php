@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Zdarzenie;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Debug\Debug;
+
 
 class ZdarzeniaController extends Controller {
 
@@ -88,7 +90,7 @@ class ZdarzeniaController extends Controller {
                         getRepository('AppBundle:Karma')->findAll();
         $terrarium = $this->getDoctrine()->
                         getRepository('AppBundle:Terrarium')->findAll();
-        $count = 10;
+        $count = 1;
         if (!empty($request->get('ptasznik'))) {
             $count = 1;
         }
@@ -134,8 +136,30 @@ class ZdarzeniaController extends Controller {
         return $this->render('AppBundle:Zdarzenia:addMulti.html.twig', array(
                     'typZdarzenia' => $typZdarzenia,
                     'pracownicy' => $pracownik,
-                    'ptasznik1' => $request->get('ptasznik1'),
-                    'ptasznik2' => $request->get('ptasznik2'),
+                    'ptasznik' => $request->get('ptasznik'),
+                    'magazyny' => $magazyn,
+                    'karmy' => $karma,
+                    'terraria' => $terrarium
+        ));
+    }
+    /**
+     * @Route("/zdarzenia/addMultiArea", name="addMultiAreaZdarzenie")
+     */
+    public function addMultiAreaAction(Request $request) {
+        $typZdarzenia = $this->getDoctrine()->
+                        getRepository('AppBundle:TypZdarzenia')->findAll();
+        $pracownik = $this->getDoctrine()->
+                        getRepository('AppBundle:Pracownik')->findAll();
+        $magazyn = $this->getDoctrine()->
+                        getRepository('AppBundle:Magazyn')->findAll();
+        $karma = $this->getDoctrine()->
+                        getRepository('AppBundle:Karma')->findAll();
+        $terrarium = $this->getDoctrine()->
+                        getRepository('AppBundle:Terrarium')->findAll();
+        return $this->render('AppBundle:Zdarzenia:addMultiArea.html.twig', array(
+                    'typZdarzenia' => $typZdarzenia,
+                    'pracownicy' => $pracownik,
+                    'ptasznik' => $request->get('ptasznik'),
                     'magazyny' => $magazyn,
                     'karmy' => $karma,
                     'terraria' => $terrarium
@@ -195,7 +219,7 @@ class ZdarzeniaController extends Controller {
             $zdarzenie = new Zdarzenie();
             $zdarzenie->setTypZdarzenia($typZdarzenia);
             $zdarzenie->setPracownik($pracownik);
-            $zdarzenie->setPtasznik($ptasznik[0]);
+            $zdarzenie->setPtasznik($ptasznik);
             $zdarzenie->setData(new \Datetime($p['data']));
             $zdarzenie->setOpis($p['opis']);
             $zdarzenie->setRozmiar("");
@@ -255,8 +279,8 @@ class ZdarzeniaController extends Controller {
                     'No ptasznik found for ean ' . $p['ptasznik1'] . " - " . $p['ptasznik2']
             );
         }
-        foreach ($ptasznik as $el) {
 
+        foreach ($ptasznik as $el) {
             $zdarzenie = new Zdarzenie();
             $zdarzenie->setTypZdarzenia($typZdarzenia);
             $zdarzenie->setPracownik($pracownik);
@@ -285,6 +309,73 @@ class ZdarzeniaController extends Controller {
                     $terrarium = $em->getRepository('AppBundle:Terrarium')->find($p['info']);
                     $zdarzenie->setTerrarium($terrarium);
                     $el->setTerrarium($terrarium);
+                    break;
+
+                default:
+                    break;
+            }
+            $em->persist($zdarzenie);
+        }
+        $em->flush();
+
+
+        $this->addFlash(
+                'notice', 'Dodano Zdarzenie!'
+        );
+        return $this->redirectToRoute('showZdarzenia');
+    }
+    /**
+     * @Route("/zdarzenia/addMultiAreaZapisz", name="addMultiAreaZapiszZdarzenie")
+     */
+    public function addMultiAreaZapiszAction(Request $request) {
+        //echo$request->get('zdarzenia') ;
+
+
+        $p = $request->get('zdarzenie');
+        if (empty($p['typZdarzenia']) || empty($p['pracownik']) || empty($p['ptaszniki']) ) {
+            return $this->redirectToRoute('showZdarzenia');
+        }
+        $em = $this->getDoctrine()->getManager();
+        $typZdarzenia = $em->getRepository('AppBundle:TypZdarzenia')->find($p['typZdarzenia']);
+        $pracownik = $em->getRepository('AppBundle:Pracownik')->find($p['pracownik']);
+//        $ptasznik = $em->getRepository('AppBundle:Ptasznik')->findByKodEanRange($p['ptasznik1'], $p['ptasznik2']);
+//        if (!$ptasznik) {
+//            throw $this->createNotFoundException(
+//                    'No ptasznik found for ean ' . $p['ptasznik1'] . " - " . $p['ptasznik2']
+//            );
+//        }
+        $ptasznik = explode(PHP_EOL,$p['ptaszniki']);
+
+        foreach ($ptasznik as $el) {
+            $pt = $em->getRepository('AppBundle:Ptasznik')->findByKodEan($el);
+            $zdarzenie = new Zdarzenie();
+            $zdarzenie->setTypZdarzenia($typZdarzenia);
+            $zdarzenie->setPracownik($pracownik);
+            $zdarzenie->setPtasznik($pt);
+            $zdarzenie->setData(new \Datetime($p['data']));
+            $zdarzenie->setOpis($p['opis']);
+            $zdarzenie->setRozmiar("");
+            switch ($p['typZdarzenia']) {
+                case '1':
+                    $karma = $em->getRepository('AppBundle:Karma')->find($p['info']);
+                    $zdarzenie->setKarma($karma);
+                    break;
+                case '2':
+                    $zdarzenie->setRozmiar($p['info']);
+                    $pt->setAktualnyRozmiar($p['info']);
+                    break;
+                case '3':
+                    $magazyn = $em->getRepository('AppBundle:Magazyn')->find($p['info']);
+                    $zdarzenie->setMagazyn($magazyn);
+                    $pt->setMagazyn($magazyn);
+                    break;
+                case '4':
+                    $pt->setAktualnyRozmiar("L1");
+                    break;
+                case '6':
+                    $terrarium = $em->getRepository('AppBundle:Terrarium')->find($p['info']);
+                    $zdarzenie->setTerrarium($terrarium);
+                    $pt->setTerrarium($terrarium);
                     break;
 
                 default:

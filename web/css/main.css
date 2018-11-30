@@ -31,6 +31,7 @@ input[type="text"], [type="date"], [type="number"]{
   border-radius: 4px;
   box-sizing: border-box;
   resize: vertical;
+  display: table;
 }
 
 select {
@@ -276,6 +277,10 @@ table a:hover{
     overflow-x: scroll;
     display: block;
     
+}
+
+.zapiszEdycje{
+    display: table;
 }
 
 .nawigacja {

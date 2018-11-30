@@ -3,13 +3,14 @@
 {% block title %}Dodawanie masowego zdarzenia{% endblock %}
 
 {% block body %}
-    <form action="{{path('addMultiZapiszZdarzenie')}}" method="POST">
+                    
+    <form action="{{path('addMultiAreaZapiszZdarzenie')}}" method="POST">
         <div class="zapiszEdycje">
             <table>
                 <tr>             
                     <th>{#<a href="{{path('showZdarzenia', {'field':'kodEan'})}}">#}Typ zdarzenia{#</a>#}</th>
                     <th>{#<a href="{{path('showZdarzenia', {'field':'nazwaLacinska'})}}">#}Pracownik{#</a>#}</th>
-                    <th>{#<a href="{{path('showZdarzenia', {'field':'nazwaPolska'})}}">#}Ptasznik, Kod EAN od - do{#</a>#}</th>
+                    <th>{#<a href="{{path('showZdarzenia', {'field':'nazwaPolska'})}}">#}Ptaszniki, Kody EAN{#</a>#}</th>
                     <th>{#<a href="{{path('showZdarzenia', {'field':'uwagi'})}}">#}Data{#</a>#}</th>
                     <th>{#<a href="{{path('showZdarzenia', {'field':'magazyn'})}}">#}Opis{#</a>#}</th>
                     <th id="thInfo">{#<a href="{{path('showZdarzenia', {'field':'magazyn'})}}">#}Info{#</a>#}</th>   
@@ -33,8 +34,7 @@
                         </select>
                     </td>
                     <td>
-                        <input type="text" name="zdarzenie[ptasznik1]" value=""/> -> 
-                        <input type="text" name="zdarzenie[ptasznik2]" value=""/>          
+                        <textarea name="zdarzenie[ptaszniki]" value="">{{ptasznik|join('\n')}}</textarea>         
                     </td>
                     <td><input type="date" name="zdarzenie[data]" value="{{ "now"|date("Y-m-d") }}"/></td>
                     <td><input type="text" name="zdarzenie[opis]" value=""/></td>
@@ -47,8 +47,8 @@
             <button type="submit">Zapisz</button>
         </div>
     </form>
-                    
     <script>
+        
         function dodajPole(typ) {
             var thInfo = document.getElementById('thInfo');
             var tdInfo = document.getElementById('tdInfo');
@@ -116,6 +116,5 @@
             }
 
         }
-        
     </script>
 {% endblock %}

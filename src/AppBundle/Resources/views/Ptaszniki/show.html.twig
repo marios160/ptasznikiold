@@ -61,7 +61,7 @@
         </tr>
         {% for item in ptaszniki %}
             <tr>
-                <td><input form="czynnosc" type="checkbox" class="chkbox" name="chck[]" value="{{item.id}}"/></td>
+                <td><input form="czynnosc" type="checkbox" class="chkbox" name="chck[]" value="{{item.kodEan}}"/></td>
                 <td>{{item.id}}</td>
                 <td>{{item.kodEan}}</td>
                 <td>{{item.nazwaLacinska}}</td>
@@ -100,10 +100,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <script>
-            submitForms = function () {
-                //document.getElementById("czynnosc").submit();
-                document.getElementById("tabela").submit();
-            }
+           
             $(document).ready(function () {
                 var $chkboxes = $('.chkbox');
                 var lastChecked = null;

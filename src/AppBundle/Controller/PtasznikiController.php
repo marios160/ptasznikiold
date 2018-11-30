@@ -86,7 +86,7 @@ class PtasznikiController extends Controller {
     public function deleteAction(Request $request) {
         foreach ($request->get('chck') as $chck) {
             $em = $this->getDoctrine()->getManager();
-            $ptasznik = $em->getReference('AppBundle:Ptasznik', $chck);
+            $ptasznik = $em->getRepository('AppBundle:Ptasznik')->findByKodEan($chck);
             $em->remove($ptasznik);
             $em->flush();
         }
@@ -117,13 +117,12 @@ class PtasznikiController extends Controller {
             $chck = $request->get('chck');
             $em = $this->getDoctrine()->getManager();
             if (count($chck) > 1) {
-                $ptasznik = $em->getRepository('AppBundle:Ptasznik')->find($chck[0]);
-                $ptasznik2 = $em->getRepository('AppBundle:Ptasznik')->find($chck[count($chck) - 1]);
-                return $this->redirectToRoute('addMultiZdarzenie', array('ptasznik1' => $ptasznik->getKodEan(), 
-                    'ptasznik2' => $ptasznik2->getKodEan()));
+//                $ptasznik = $em->getRepository('AppBundle:Ptasznik')->findByKodEan($chck[0]);
+//                $ptasznik2 = $em->getRepository('AppBundle:Ptasznik')->findByKodEan($chck[count($chck) - 1]);
+                return $this->redirectToRoute('addMultiAreaZdarzenie', array('ptasznik' => $chck));
             } else {
-                $ptasznik = $em->getRepository('AppBundle:Ptasznik')->find($chck[0]);
-                return $this->redirectToRoute('addZdarzenie', array('ptasznik' => $ptasznik->getKodEan()));
+//                $ptasznik = $em->getRepository('AppBundle:Ptasznik')->find($chck[0]);
+                return $this->redirectToRoute('addZdarzenie', array('ptasznik' => $chck[0]));
             }
         }
         return $this->redirectToRoute('showPtaszniki');
@@ -134,7 +133,7 @@ class PtasznikiController extends Controller {
      */
     public function editAction(Request $request) {
         $ptaszniki = $this->getDoctrine()->
-                        getRepository('AppBundle:Ptasznik')->findByIds($request->get('chck'));
+                        getRepository('AppBundle:Ptasznik')->findByKodEans($request->get('chck'));
         $magazyny = $this->getDoctrine()->
                         getRepository('AppBundle:Magazyn')->findAll();
         $terraria = $this->getDoctrine()->

@@ -98,15 +98,35 @@ class PtasznikRepository extends \Doctrine\ORM\EntityRepository {
                         ->getResult();
     }
     
+    public function findByKodEans($kodyEan){
+        $query = "SELECT p.id, m.nazwa as magazyn, t.nazwa as terrarium, p.kodEan, p.nazwaLacinska, p.nazwaPolska,"
+                . " p.uwagi, p.lpWPartii, p.kodDostawy, p.zakupRozmiar, p.aktualnyRozmiar,"
+                . " p.plec, p.wydrukEtykiety FROM AppBundle:Ptasznik p "
+                . "LEFT JOIN AppBundle:Magazyn m  WITH p.magazyn=m.id"
+                . " LEFT JOIN AppBundle:Terrarium t WITH p.terrarium=t.id"
+                . " WHERE ";
+        $i = 0;
+        $len = count($kodyEan) - 1;
+        foreach ($kodyEan as $kodEan) {
+            $query .= "p.kodEan = $kodEan";
+            if ($i < $len)
+                $query .= " OR ";
+            $i++;
+        }
+        
+
+        return $this->getEntityManager()->createQuery($query)
+                        ->getResult();
+    }
     public function findByKodEan($kodEan){
-        $query = "SELECT p FROM AppBundle:Ptasznik p WHERE p.kodEan LIKE '$kodEan'";
+        $query = "SELECT p FROM AppBundle:Ptasznik p WHERE p.kodEan = '$kodEan'";
 
 
         return $this->getEntityManager()
                         ->createQuery($query)
                         ->setFirstResult(0)
                         ->setMaxResults(1)
-                        ->getResult();
+                ->getSingleResult();
     }
     
     public function findByKodEanRange($kodEan1, $kodEan2){
