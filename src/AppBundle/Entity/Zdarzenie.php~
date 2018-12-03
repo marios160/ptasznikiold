@@ -31,12 +31,14 @@ class Zdarzenie {
      protected $typZdarzenia;
      
      /**
+      * @Assert\NotBlank()
       * @ORM\ManyToOne(targetEntity="Pracownik", inversedBy="zdarzenia")
       * @ORM\JoinColumn(name="pracownik_id", referencedColumnName="id")
       */
      protected $pracownik;
      
      /**
+      * @Assert\NotBlank()
       * @ORM\ManyToOne(targetEntity="Ptasznik", inversedBy="zdarzenia")
       * @ORM\JoinColumn(name="ptasznik_id", referencedColumnName="id")
       * @Assert\NotBlank()
@@ -50,6 +52,7 @@ class Zdarzenie {
     protected $data;
      
     /**
+     * @Assert\NotBlank()
       * @ORM\Column(name="opis", type="string", length=255, nullable=true)
       */
     protected $opis;

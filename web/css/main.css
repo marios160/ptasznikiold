@@ -1,46 +1,46 @@
 body {
-        background: #000 url("../images/tlo.png") no-repeat;
-	font-family: "Lato", sans-serif;
-	color: white;
-        text-align: center;
+    background: #000 url("../images/tlo.png") no-repeat;
+    font-family: "Lato", sans-serif;
+    color: white;
+    text-align: center;
 }
 
 button {
     text-decoration: none;
-	
-	font-weight: bold;
-	background: #000 url("../images/button.png") repeat-x center;
-	color: #fff;
-	padding: 10px 20px;
-	border-right: 1px solid #fff;
-        border-radius: 4px;
-        margin: 10px;
+
+    font-weight: bold;
+    background: #000 url("../images/button.png") repeat-x center;
+    color: #fff;
+    padding: 10px 20px;
+    border-right: 1px solid #fff;
+    border-radius: 4px;
+    margin: 10px;
 
 }
 
 button:hover {
-	background-color: #800;
-	background-image: url("../images/button2.png");
+    background-color: #800;
+    background-image: url("../images/button2.png");
 }
 
 
 input[type="text"], [type="date"], [type="number"]{
-  width: fit-content;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  resize: vertical;
-  display: table;
+    width: fit-content;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+    display: table;
 }
 
 select {
-  width: fit-content;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  resize: vertical;
+    width: fit-content;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
 }
 
 input[type="checkbox"]{
@@ -67,7 +67,7 @@ table tr th{
 table tr td{
     padding: 5px;
     font-size: 0.9em;
-    
+
 }
 
 table button{
@@ -91,32 +91,32 @@ table a:hover{
     text-align: center;
     padding-bottom: 20px;
     display: block;
-    
+
 }
 
 .sidebar ul, ul li {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-       background: url("../images/button.png") repeat-x center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: url("../images/button.png") repeat-x center;
 }
 
 .sidebar ul li {
-	display:inline-block;
+    display:inline-block;
 }
 
 .sidebar ul a:link, ul a:visited {
-	text-decoration: none;
-	display: block;
-	font-weight: bold;
-	background: #000 url("../images/button.png") repeat-x center;
-	color: #fff;
-	padding: 10px 20px;    
+    text-decoration: none;
+    display: block;
+    font-weight: bold;
+    background: #000 url("../images/button.png") repeat-x center;
+    color: #fff;
+    padding: 10px 20px;    
 }
 
 .sidebar ul a:hover {
-	background-color: #800;
-	background-image: url("../images/button2.png");
+    background-color: #800;
+    background-image: url("../images/button2.png");
 }
 
 /*==============================================================*/
@@ -129,59 +129,59 @@ table a:hover{
 
 /* Style the container */
 .formularz {
-  border-radius: 5px;
-  padding: 20px;
-  width: 50%;
-  margin: auto;
+    border-radius: 5px;
+    padding: 20px;
+    width: 50%;
+    margin: auto;
 }
 
 
 /* Floating column for labels: 25% width */
 .col-25 {
-  float: left;
-  width: 25%;
-  margin-top: 6px;
+    float: left;
+    width: 25%;
+    margin-top: 6px;
 }
 
 /* Floating column for inputs: 75% width */
 .col-75 {
-  float: left;
-  width: 75%;
-  margin-top: 6px;
+    float: left;
+    width: 75%;
+    margin-top: 6px;
 }
 
 /* Clear floats after the columns */
 .form_row:after {
-  content: "";
-  display: table;
-  clear: both;
+    content: "";
+    display: table;
+    clear: both;
 }
 
 /* Style inputs, select elements and textareas */
 .formularz input[type=text], select, textarea{
-  width: fit-content;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  resize: vertical;
+    width: fit-content;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
 }
 
 /* Style the label to display next to the inputs */
 .formularz label {
-  padding: 12px 12px 12px 0;
-  display: inline-block;
+    padding: 12px 12px 12px 0;
+    display: inline-block;
 }
 
 /* Style the submit button */
 .formularz input[type=submit] {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  float: right;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
 }
 
 
@@ -202,11 +202,11 @@ table a:hover{
 }
 
 .szukaj input {
-  float: right;
-  width: 70%;
-  margin: 0;
-  display: inline-block;
-  
+    float: right;
+    width: 70%;
+    margin: 0;
+    display: inline-block;
+
 }
 
 .szukaj button {
@@ -266,9 +266,11 @@ table a:hover{
     margin-right: auto;
     width: fit-content;
     text-align: center;
+    color: red;
     border: 1px solid;
     border-radius: 4px;
     padding: 10px;
+    margin-bottom: 10px;
 }
 
 .zapiszEdycje button {
@@ -280,11 +282,13 @@ table a:hover{
 .zapiszEdycje table{
     overflow-x: scroll;
     display: block;
-    
+
 }
 
 .zapiszEdycje{
     display: table;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .nawigacja {

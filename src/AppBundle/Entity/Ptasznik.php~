@@ -26,7 +26,7 @@ class Ptasznik {
    
     
     /**
-      * @ORM\Column(name="kod_ean", type="string", length=100)
+      * @ORM\Column(name="kod_ean", type="string", length=100,unique=true)
       * @Assert\NotBlank()
       */
     protected $kodEan;

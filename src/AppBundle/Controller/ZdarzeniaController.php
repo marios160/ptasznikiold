@@ -282,6 +282,14 @@ class ZdarzeniaController extends Controller {
 
         $p = $request->get('zdarzenie');
         if (empty($p['typZdarzenia']) || empty($p['pracownik']) || empty($p['ptasznik1']) || empty($p['ptasznik2'])) {
+            $this->addFlash(
+                    'notice', 'Wypełnij wymagane pola (Typ zdarzenia, pracownik, ptasznik, data, wartość zdarzenia)!'
+            );
+            return $this->redirectToRoute('addMultiZdarzenie');
+        } else if ($p['ptasznik1'] == $p['ptasznik2']) {
+            $this->addFlash(
+                    'notice', 'Jeśli chcesz dodać zdarzenie dla jednego ptasznika, użyj opcji "Dodaj zdarzenie"'
+            );
             return $this->redirectToRoute('showZdarzenia');
         }
         $em = $this->getDoctrine()->getManager();
