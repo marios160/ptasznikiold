@@ -68,11 +68,32 @@ class PtasznikiController extends Controller {
     public function czynnoscAction(Request $request) {
         switch ($request->get('czynnosc')) {
             case 'deletePtasznik':
-                return $this->redirect($this->generateUrl('deletePtasznik', array('chck' => $request->get('chck'))));
-            case 'addZdarzenie':
-                return $this->redirect($this->generateUrl('addZdarzeniePtasznik', array('chck' => $request->get('chck'))));
+                if (empty($request->get('chck')) == false) {
+                    return $this->redirect($this->generateUrl('deletePtasznik', array('chck' => $request->get('chck'))));
+                } else {
+                    $this->addFlash(
+                            'notice', 'Proszę zaznaczyć pozycję!'
+                    );
+                    return $this->redirectToRoute('showPtaszniki');
+                }
+            case 'addZdarzenie' :
+                if (empty($request->get('chck')) == false) {
+                    return $this->redirect($this->generateUrl('addZdarzeniePtasznik', array('chck' => $request->get('chck'))));
+                } else{
+                    $this->addFlash(
+                            'notice', 'Proszę zaznaczyć pozycję!'
+                    );
+                    return $this->redirectToRoute('showPtaszniki');
+                }
             case 'editPtasznik':
-                return $this->redirect($this->generateUrl('editPtasznik', array('chck' => $request->get('chck'))));
+                if (empty($request->get('chck')) == false) {
+                    return $this->redirect($this->generateUrl('editPtasznik', array('chck' => $request->get('chck'))));
+                } else{
+                    $this->addFlash(
+                            'notice', 'Proszę zaznaczyć pozycję!'
+                    );
+                    return $this->redirectToRoute('showPtaszniki');
+                }
             case 'addPtasznik':
                 return $this->redirect($this->generateUrl('addPtasznik'));
         }

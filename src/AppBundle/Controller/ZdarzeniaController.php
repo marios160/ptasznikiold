@@ -12,7 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Debug\Debug;
 
-
 class ZdarzeniaController extends Controller {
 
     /**
@@ -48,13 +47,27 @@ class ZdarzeniaController extends Controller {
         $request->get('chck');
         switch ($request->get('czynnosc')) {
             case 'deleteZdarzenie':
-                return $this->redirect($this->generateUrl('deleteZdarzenie', array('chck' => $request->get('chck'))));
+                if (empty($request->get('chck')) == false) {
+                    return $this->redirect($this->generateUrl('deleteZdarzenie', array('chck' => $request->get('chck'))));
+                } else {
+                    $this->addFlash(
+                            'notice', 'Proszę zaznaczyć pozycję!'
+                    );
+                    return $this->redirectToRoute('showZdarzenia');
+                }
             case 'addZdarzenie':
                 return $this->redirect($this->generateUrl('addZdarzenie'));
             case 'addMultiZdarzenie':
                 return $this->redirect($this->generateUrl('addMultiZdarzenie'));
             case 'editZdarzenie':
-                return $this->redirect($this->generateUrl('editZdarzenie', array('chck' => $request->get('chck'))));
+                if (empty($request->get('chck')) == false) {
+                    return $this->redirect($this->generateUrl('editZdarzenie', array('chck' => $request->get('chck'))));
+                } else {
+                    $this->addFlash(
+                            'notice', 'Proszę zaznaczyć pozycję!'
+                    );
+                    return $this->redirectToRoute('showZdarzenia');
+                }
         }
         //while($request->get('chck'))
         // $request->get('chck')
@@ -142,6 +155,7 @@ class ZdarzeniaController extends Controller {
                     'terraria' => $terrarium
         ));
     }
+
     /**
      * @Route("/zdarzenia/addMultiArea", name="addMultiAreaZdarzenie")
      */
@@ -324,6 +338,7 @@ class ZdarzeniaController extends Controller {
         );
         return $this->redirectToRoute('showZdarzenia');
     }
+
     /**
      * @Route("/zdarzenia/addMultiAreaZapisz", name="addMultiAreaZapiszZdarzenie")
      */
@@ -332,7 +347,7 @@ class ZdarzeniaController extends Controller {
 
 
         $p = $request->get('zdarzenie');
-        if (empty($p['typZdarzenia']) || empty($p['pracownik']) || empty($p['ptaszniki']) ) {
+        if (empty($p['typZdarzenia']) || empty($p['pracownik']) || empty($p['ptaszniki'])) {
             return $this->redirectToRoute('showZdarzenia');
         }
         $em = $this->getDoctrine()->getManager();
@@ -344,7 +359,7 @@ class ZdarzeniaController extends Controller {
 //                    'No ptasznik found for ean ' . $p['ptasznik1'] . " - " . $p['ptasznik2']
 //            );
 //        }
-        $ptasznik = explode(PHP_EOL,$p['ptaszniki']);
+        $ptasznik = explode(PHP_EOL, $p['ptaszniki']);
 
         foreach ($ptasznik as $el) {
             $pt = $em->getRepository('AppBundle:Ptasznik')->findByKodEan($el);
