@@ -297,9 +297,10 @@ class ZdarzeniaController extends Controller {
         $pracownik = $em->getRepository('AppBundle:Pracownik')->find($p['pracownik']);
         $ptasznik = $em->getRepository('AppBundle:Ptasznik')->findByKodEanRange($p['ptasznik1'], $p['ptasznik2']);
         if (!$ptasznik) {
-            throw $this->createNotFoundException(
-                    'No ptasznik found for ean ' . $p['ptasznik1'] . " - " . $p['ptasznik2']
+            $this->addFlash(
+                    'notice', 'Niepoprawny zakres kodów EAN!'
             );
+            return $this->redirectToRoute('addMultiZdarzenie');
         }
 
         foreach ($ptasznik as $el) {
