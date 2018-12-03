@@ -33,15 +33,14 @@ class Zdarzenie {
      /**
       * @Assert\NotBlank()
       * @ORM\ManyToOne(targetEntity="Pracownik", inversedBy="zdarzenia")
-      * @ORM\JoinColumn(name="pracownik_id", referencedColumnName="id")
+      * @ORM\JoinColumn(name="pracownik_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
       */
      protected $pracownik;
      
      /**
       * @Assert\NotBlank()
       * @ORM\ManyToOne(targetEntity="Ptasznik", inversedBy="zdarzenia")
-      * @ORM\JoinColumn(name="ptasznik_id", referencedColumnName="id")
-      * @Assert\NotBlank()
+      * @ORM\JoinColumn(name="ptasznik_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
       */
      protected $ptasznik;
      
@@ -63,17 +62,17 @@ class Zdarzenie {
     protected $rozmiar;
     /**
       * @ORM\ManyToOne(targetEntity="Magazyn", inversedBy="zdarzenia")
-      * @ORM\JoinColumn(name="magazyn_id", referencedColumnName="id")
+      * @ORM\JoinColumn(name="magazyn_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
       */
      protected $magazyn;
     /**
       * @ORM\ManyToOne(targetEntity="Karma", inversedBy="zdarzenia")
-      * @ORM\JoinColumn(name="karma_id", referencedColumnName="id")
+      * @ORM\JoinColumn(name="karma_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
       */
      protected $karma;
     /**
       * @ORM\ManyToOne(targetEntity="Terrarium", inversedBy="zdarzenia")
-      * @ORM\JoinColumn(name="terrarium_id", referencedColumnName="id")
+      * @ORM\JoinColumn(name="terrarium_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
       */
      protected $terrarium;
      
