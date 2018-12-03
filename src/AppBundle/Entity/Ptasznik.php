@@ -54,13 +54,13 @@ class Ptasznik {
      
      /**
       * @ORM\ManyToOne(targetEntity="Magazyn", inversedBy="ptaszniki")
-      * @ORM\JoinColumn(name="magazyn_id", referencedColumnName="id")
+      * @ORM\JoinColumn(name="magazyn_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
       */
      protected $magazyn;
      
      /**
       * @ORM\ManyToOne(targetEntity="Terrarium", inversedBy="ptaszniki")
-      * @ORM\JoinColumn(name="terrarium_id", referencedColumnName="id")
+      * @ORM\JoinColumn(name="terrarium_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
       */
      protected $terrarium;
      
