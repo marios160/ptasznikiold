@@ -79,7 +79,7 @@ class PtasznikiController extends Controller {
             case 'addZdarzenie' :
                 if (empty($request->get('chck')) == false) {
                     return $this->redirect($this->generateUrl('addZdarzeniePtasznik', array('chck' => $request->get('chck'))));
-                } else{
+                } else {
                     $this->addFlash(
                             'notice', 'Proszę zaznaczyć pozycję!'
                     );
@@ -88,7 +88,7 @@ class PtasznikiController extends Controller {
             case 'editPtasznik':
                 if (empty($request->get('chck')) == false) {
                     return $this->redirect($this->generateUrl('editPtasznik', array('chck' => $request->get('chck'))));
-                } else{
+                } else {
                     $this->addFlash(
                             'notice', 'Proszę zaznaczyć pozycję!'
                     );
@@ -205,38 +205,47 @@ class PtasznikiController extends Controller {
     public function addZapiszAction(Request $request) {
         //echo$request->get('ptaszniki') ;
 
-        foreach ($request->get('ptasznik') as $p) {
-            $var = false;
-            foreach ($p as $value) {
-                if (empty($value)) {
-                    $var = false;
-                } else {
-                    $var = true;
-                    break;
-                }
+        $p = $request->get('ptasznik');
+        $var = false;
+        foreach ($p as $value) {
+            if (empty($value)) {
+                $var = false;
+            } else {
+                $var = true;
+                break;
             }
-            if (!$var) {
-                continue;
-            }
-            $em = $this->getDoctrine()->getManager();
-            $magazyn = $em->getRepository('AppBundle:Magazyn')->find($p['magazyn']);
-            $terrarium = $em->getRepository('AppBundle:Terrarium')->find($p['terrarium']);
-            $ptasznik = new Ptasznik();
-            $ptasznik->setKodEan($p['kodEan']);
-            $ptasznik->setNazwaLacinska($p['nazwaLacinska']);
-            $ptasznik->setNazwaPolska($p['nazwaPolska']);
-            $ptasznik->setUwagi($p['uwagi']);
-            $ptasznik->setKodDostawy($p['kodDostawy']);
-            $ptasznik->setMagazyn($magazyn);
-            $ptasznik->setTerrarium($terrarium);
-            $ptasznik->setZakupRozmiar($p['zakupRozmiar']);
-            $ptasznik->setAktualnyRozmiar($p['aktualnyRozmiar']);
-            $ptasznik->setPlec($p['plec']);
-            $ptasznik->setLpWPartii($p['lpWPartii']);
-            $ptasznik->setWydrukEtykiety($p['wydrukEtykiety']);
-            $em->persist($ptasznik);
-            $em->flush();
         }
+
+        $em = $this->getDoctrine()->getManager();
+        $magazyn = $em->getRepository('AppBundle:Magazyn')->find($p['magazyn']);
+        $terrarium = $em->getRepository('AppBundle:Terrarium')->find($p['terrarium']);
+        $ptasznik = new Ptasznik();
+        $ptasznik->setKodEan($p['kodEan']);
+        $ptasznik->setNazwaLacinska($p['nazwaLacinska']);
+        $ptasznik->setNazwaPolska($p['nazwaPolska']);
+        $ptasznik->setUwagi($p['uwagi']);
+        $ptasznik->setKodDostawy($p['kodDostawy']);
+        $ptasznik->setMagazyn($magazyn);
+        $ptasznik->setTerrarium($terrarium);
+        $ptasznik->setZakupRozmiar($p['zakupRozmiar']);
+        $ptasznik->setAktualnyRozmiar($p['aktualnyRozmiar']);
+        $ptasznik->setPlec($p['plec']);
+        $ptasznik->setLpWPartii($p['lpWPartii']);
+        $ptasznik->setWydrukEtykiety($p['wydrukEtykiety']);
+        
+        $validator = $this->get('validator');
+        $errors = $validator->validate($ptasznik);
+
+        if (count($errors) > 0) {
+            $this->addFlash(
+                'notice', 'Proszę wypełnić wymagane pola!'
+            );
+            return $this->redirectToRoute('addPtasznik');
+        }
+        
+        $em->persist($ptasznik);
+        $em->flush();
+
 
         $this->addFlash(
                 'notice', 'Dodano ptasznika!'

@@ -8,16 +8,17 @@
                     {{ flashMessage }}
                 </div>
             {% endfor %}
+            <p> * - Pola wymagane</p>
     <form action="{{path('addMultiZapiszZdarzenie')}}" method="POST">
         <div class="zapiszEdycje">
             <table>
                 <tr>             
-                    <th>{#<a href="{{path('showZdarzenia', {'field':'kodEan'})}}">#}Typ zdarzenia{#</a>#}</th>
-                    <th>{#<a href="{{path('showZdarzenia', {'field':'nazwaLacinska'})}}">#}Pracownik{#</a>#}</th>
-                    <th>{#<a href="{{path('showZdarzenia', {'field':'nazwaPolska'})}}">#}Ptasznik, Kod EAN od - do{#</a>#}</th>
-                    <th>{#<a href="{{path('showZdarzenia', {'field':'uwagi'})}}">#}Data{#</a>#}</th>
+                    <th>{#<a href="{{path('showZdarzenia', {'field':'kodEan'})}}">#}Typ zdarzenia *{#</a>#}</th>
+                    <th>{#<a href="{{path('showZdarzenia', {'field':'nazwaLacinska'})}}">#}Pracownik *{#</a>#}</th>
+                    <th>{#<a href="{{path('showZdarzenia', {'field':'nazwaPolska'})}}">#}Ptasznik, Kod EAN od - do *{#</a>#}</th>
+                    <th>{#<a href="{{path('showZdarzenia', {'field':'uwagi'})}}">#}Data *{#</a>#}</th>
                     <th>{#<a href="{{path('showZdarzenia', {'field':'magazyn'})}}">#}Opis{#</a>#}</th>
-                    <th id="thInfo">{#<a href="{{path('showZdarzenia', {'field':'magazyn'})}}">#}Info{#</a>#}</th>   
+                    <th id="thInfo">{#<a href="{{path('showZdarzenia', {'field':'magazyn'})}}">#}Info *{#</a>#}</th>   
                 </tr>
 
                 <tr>
@@ -38,8 +39,8 @@
                         </select>
                     </td>
                     <td>
-                        <input type="text" name="zdarzenie[ptasznik1]" value=""/> -> 
-                        <input type="text" name="zdarzenie[ptasznik2]" value=""/>          
+                        <input type="text" name="zdarzenie[ptasznik1]" value="{{ptasznik1 is defined ? ptasznik1 : ''}}"/> -> 
+                        <input type="text" name="zdarzenie[ptasznik2]" value="{{ptasznik2 is defined ? ptasznik2 : ''}}"/>          
                     </td>
                     <td><input type="date" name="zdarzenie[data]" value="{{ "now"|date("Y-m-d") }}"/></td>
                     <td><input type="text" name="zdarzenie[opis]" value=""/></td>

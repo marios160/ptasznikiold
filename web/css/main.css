@@ -5,6 +5,10 @@ body {
     text-align: center;
 }
 
+p {
+    text-align: left;
+}
+
 button {
     text-decoration: none;
 
@@ -286,7 +290,7 @@ table a:hover{
 }
 
 .zapiszEdycje{
-    display: table;
+    display: block;
     margin-left: auto;
     margin-right: auto;
 }

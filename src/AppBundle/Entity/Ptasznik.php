@@ -33,6 +33,7 @@ class Ptasznik {
      
      /**
       * @ORM\Column(name="nazwa_lacinska", type="string")
+      * @Assert\NotBlank()
       */
      protected $nazwaLacinska;
      

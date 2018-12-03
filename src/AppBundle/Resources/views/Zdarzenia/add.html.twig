@@ -3,23 +3,27 @@
 {% block title %}Dodawanie zdarzenia{% endblock %}
 
 {% block body %}
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+                <div class="flash-notice">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+    <p> * - Pola wymagane</p>
     <form action="{{path('addZapiszZdarzenie')}}" method="POST">
         <div class="zapiszEdycje">
             <table>
                 <tr>             
-                    <th>Lp.</th>
-                    <th>{#<a href="{{path('showZdarzenia', {'field':'kodEan'})}}">#}Typ zdarzenia{#</a>#}</th>
-                    <th>{#<a href="{{path('showZdarzenia', {'field':'nazwaLacinska'})}}">#}Pracownik{#</a>#}</th>
-                    <th>{#<a href="{{path('showZdarzenia', {'field':'nazwaPolska'})}}">#}Ptasznik{#</a>#}</th>
-                    <th>{#<a href="{{path('showZdarzenia', {'field':'uwagi'})}}">#}Data{#</a>#}</th>
+                    <th>{#<a href="{{path('showZdarzenia', {'field':'kodEan'})}}">#}Typ zdarzenia *{#</a>#}</th>
+                    <th>{#<a href="{{path('showZdarzenia', {'field':'nazwaLacinska'})}}">#}Pracownik *{#</a>#}</th>
+                    <th>{#<a href="{{path('showZdarzenia', {'field':'nazwaPolska'})}}">#}Ptasznik *{#</a>#}</th>
+                    <th>{#<a href="{{path('showZdarzenia', {'field':'uwagi'})}}">#}Data *{#</a>#}</th>
                     <th>{#<a href="{{path('showZdarzenia', {'field':'magazyn'})}}">#}Opis{#</a>#}</th>            
-                    <th id="thInfo">{#<a href="{{path('showZdarzenia', {'field':'magazyn'})}}">#}Info{#</a>#}</th>            
+                    <th id="thInfo">{#<a href="{{path('showZdarzenia', {'field':'magazyn'})}}">#}Info *{#</a>#}</th>            
                 </tr>
-                {% for i in 1..count %}
-                    <tr id="trInfo{{i}}">
-                        <td>{{i}}</td>
+                
+                    <tr id="trInfo">
                         <td>
-                            <select name="zdarzenie[{{i}}][typZdarzenia]"  onChange="zablokuj({{i}}, value)">
+                            <select name="zdarzenie[typZdarzenia]"  onChange="zablokuj(value)">
                                 <option value="" selected></option>
                                 {% for typ in typZdarzenia %}
                                     <option value="{{typ.id}}" >{{typ.nazwa}}</option>
@@ -27,20 +31,20 @@
                             </select>
                         </td>
                         <td>
-                            <select name="zdarzenie[{{i}}][pracownik]">
+                            <select name="zdarzenie[pracownik]">
                                 <option value="" selected></option>
                                 {% for pra in pracownicy %}
                                     <option value="{{pra.id}}">{{pra.imie ~ ' ' ~ pra.nazwisko}}</option>
                                 {% endfor %}
                             </select>
                         </td>
-                        <td><input type="text" name="zdarzenie[{{i}}][ptasznik]" value="{{ptasznik}}"/></td>
-                        <td><input type="date" name="zdarzenie[{{i}}][data]" value="{{ "now"|date("Y-m-d") }}"/></td>
-                        <td><input type="text" name="zdarzenie[{{i}}][opis]" value=""/></td>
-                        <td id="tdInfo{{i}}"></td>
+                        <td><input type="text" name="zdarzenie[ptasznik]" value="{{ptasznik}}"/></td>
+                        <td><input type="date" name="zdarzenie[data]" value="{{ "now"|date("Y-m-d") }}"/></td>
+                        <td><input type="text" name="zdarzenie[opis]" value=""/></td>
+                        <td id="tdInfo"></td>
 
                     </tr>
-                {% endfor %}
+                
             </table>
 
 
@@ -48,10 +52,10 @@
         </div>
     </form>
     <script>
-        function zablokuj(i, typ) {
+        function zablokuj(typ) {
             var thInfo = document.getElementById('thInfo');
-            var trInfo = document.getElementById("trInfo"+i);
-            var tdInfo = document.getElementById("tdInfo"+i);
+            var trInfo = document.getElementById("trInfo");
+            var tdInfo = document.getElementById("tdInfo");
             while (tdInfo.firstChild) {
                 tdInfo.removeChild(tdInfo.firstChild);
             }
@@ -59,7 +63,7 @@
                 case '1': //karmienie
                     thInfo.innerHTML = 'Karma';
                     var tdSel = document.createElement("select")
-                    tdSel.setAttribute("name", "zdarzenie[" + i + "][info]");
+                    tdSel.setAttribute("name", "zdarzenie[info]");
                     var selOpt = document.createElement("option")
                     selOpt.setAttribute("value", "");
                     selOpt.setAttribute("selected", "selected");
@@ -77,14 +81,14 @@
                     thInfo.innerHTML = 'Rozmiar';
                     var tdInput = document.createElement("input");
                     tdInput.setAttribute("type", "text",);
-                    tdInput.setAttribute("name", "zdarzenie[" + i + "][info]");
+                    tdInput.setAttribute("name", "zdarzenie[info]");
                     tdInfo.appendChild(tdInput);
                     trInfo.appendChild(tdInfo);
                     break;
                 case '3': //zmiana magazynu
                     thInfo.innerHTML = 'Magazyn';
                     var tdSel = document.createElement("select")
-                    tdSel.setAttribute("name", "zdarzenie[" + i + "][info]");
+                    tdSel.setAttribute("name", "zdarzenie[info]");
                     var selOpt = document.createElement("option")
                     selOpt.setAttribute("value", "");
                     selOpt.setAttribute("selected", "selected");
@@ -101,7 +105,7 @@
                 case '6': //zmiana magazynu
                     thInfo.innerHTML = 'Terrarium';
                     var tdSel = document.createElement("select")
-                    tdSel.setAttribute("name", "zdarzenie[" + i + "][info]");
+                    tdSel.setAttribute("name", "zdarzenie[info]");
                     var selOpt = document.createElement("option")
                     selOpt.setAttribute("value", "");
                     selOpt.setAttribute("selected", "selected");

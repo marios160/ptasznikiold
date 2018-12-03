@@ -129,7 +129,8 @@ class ZdarzeniaController extends Controller {
                         getRepository('AppBundle:Pracownik')->findAll();
         return $this->render('AppBundle:Zdarzenia:edit.html.twig', array('zdarzenia' => $zdarzenia,
                     'typZdarzenia' => $typZdarzenia,
-                    'pracownicy' => $pracownik));
+                    'pracownicy' => $pracownik,
+                    'ptasznik' => $request->get('ptasznik')));
     }
 
     /**
@@ -150,6 +151,8 @@ class ZdarzeniaController extends Controller {
                     'typZdarzenia' => $typZdarzenia,
                     'pracownicy' => $pracownik,
                     'ptasznik' => $request->get('ptasznik'),
+                    'ptasznik1' => $request->get('ptasznik1'),
+                    'ptasznik2' => $request->get('ptasznik2'),
                     'magazyny' => $magazyn,
                     'karmy' => $karma,
                     'terraria' => $terrarium
@@ -174,6 +177,7 @@ class ZdarzeniaController extends Controller {
                     'typZdarzenia' => $typZdarzenia,
                     'pracownicy' => $pracownik,
                     'ptasznik' => $request->get('ptasznik'),
+                    'ptaszniki' => $request->get('ptaszniki'),
                     'magazyny' => $magazyn,
                     'karmy' => $karma,
                     'terraria' => $terrarium
@@ -215,10 +219,13 @@ class ZdarzeniaController extends Controller {
     public function addZapiszAction(Request $request) {
         //echo$request->get('zdarzenia') ;
 
-        foreach ($request->get('zdarzenie') as $p) {
+        $p = $request->get('zdarzenie');
 
             if (empty($p['typZdarzenia']) || empty($p['pracownik']) || empty($p['ptasznik'])) {
-                continue;
+                $this->addFlash(
+                        'notice', 'Proszę wypełnić wymagane pola!'
+                );
+                return $this->redirectToRoute('addZdarzenie', array('ptasznik' => $p['ptasznik']));
             }
             $em = $this->getDoctrine()->getManager();
             $typZdarzenia = $em->getRepository('AppBundle:TypZdarzenia')->find($p['typZdarzenia']);
@@ -262,13 +269,12 @@ class ZdarzeniaController extends Controller {
                 default:
                     break;
             }
-
             $em->persist($zdarzenie);
             $em->flush();
-        }
+        
 
         $this->addFlash(
-                'notice', 'Dodano ptasznika!'
+                'notice', 'Dodano zdarzenie!'
         );
         return $this->redirectToRoute('showZdarzenia');
     }
@@ -283,9 +289,9 @@ class ZdarzeniaController extends Controller {
         $p = $request->get('zdarzenie');
         if (empty($p['typZdarzenia']) || empty($p['pracownik']) || empty($p['ptasznik1']) || empty($p['ptasznik2'])) {
             $this->addFlash(
-                    'notice', 'Wypełnij wymagane pola (Typ zdarzenia, pracownik, ptasznik, data, wartość zdarzenia)!'
+                    'notice', 'Proszę wypełnić wymagane pola!'
             );
-            return $this->redirectToRoute('addMultiZdarzenie');
+            return $this->redirectToRoute('addMultiZdarzenie', array('ptasznik1' => $p['ptasznik1'], 'ptasznik2' => $p['ptasznik2']));
         } else if ($p['ptasznik1'] == $p['ptasznik2']) {
             $this->addFlash(
                     'notice', 'Jeśli chcesz dodać zdarzenie dla jednego ptasznika, użyj opcji "Dodaj zdarzenie"'
@@ -357,7 +363,10 @@ class ZdarzeniaController extends Controller {
 
         $p = $request->get('zdarzenie');
         if (empty($p['typZdarzenia']) || empty($p['pracownik']) || empty($p['ptaszniki'])) {
-            return $this->redirectToRoute('showZdarzenia');
+            $this->addFlash(
+                    'notice', 'Proszę wypełnić wymagane pola!'
+            );
+            return $this->redirectToRoute('addMultiAreaZdarzenie', array('ptaszniki' => $p['ptaszniki']));
         }
         $em = $this->getDoctrine()->getManager();
         $typZdarzenia = $em->getRepository('AppBundle:TypZdarzenia')->find($p['typZdarzenia']);
