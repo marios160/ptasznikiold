@@ -82,6 +82,7 @@
 {% if maxPages > 1 %}
 
             <div class="paginating">
+                 <label>Strona:</label>
                 <select name="strona" onChange="window.location = this.options[this.selectedIndex].value">
                     {% for i in 1..maxPages %}
                         {%if i == thisPage %}
