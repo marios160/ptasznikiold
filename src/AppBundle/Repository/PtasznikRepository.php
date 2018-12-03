@@ -41,8 +41,8 @@ class PtasznikRepository extends \Doctrine\ORM\EntityRepository {
                 . " LEFT JOIN AppBundle:Terrarium t WITH p.terrarium=t.id";
         if ($session->get('find')) {
             $find = trim($session->get('find'));
-            $query .= " WHERE p.id LIKE '%$find%' OR "
-                    . "p.kodEan LIKE '%$find%' OR "
+            $query .= " WHERE p.id LIKE '$find' OR "
+                    . "p.kodEan LIKE '$find' OR "
                     . "p.nazwaLacinska LIKE '%$find%' OR "
                     . "p.nazwaPolska LIKE '%$find%' OR "
                     . "p.lpWPartii LIKE '%$find%' OR "

@@ -40,6 +40,7 @@ class PtasznikiController extends Controller {
           $session->set('order', $order);
           } else */ if ($request->get('find') != "") {
             $session->set('find', $request->get('find'));
+            $currentPage = 1;
         } else {
             /* $session->set('field', "");
               $session->set('order', ""); */
