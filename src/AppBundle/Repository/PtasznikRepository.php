@@ -50,6 +50,12 @@ class PtasznikRepository extends \Doctrine\ORM\EntityRepository {
                     . "p.zakupRozmiar LIKE '%$find%' OR "
                     . "p.aktualnyRozmiar LIKE '%$find%' OR "
                     . "p.plec LIKE '%$find%' OR "
+                    . "m.nazwa LIKE '%$find%' OR "
+                    . "m.nazwaSkrocona LIKE '%$find%' OR "
+                    . "t.nazwa LIKE '%$find%' OR "
+                    . "t.opis LIKE '%$find%' OR "
+                    . "t.pojemnosc LIKE '%$find%' OR "
+                    . "t.rozmiar LIKE '%$find%' OR "
                     . "p.wydrukEtykiety LIKE '%$find%'";
         }
         /* if($session->get('field')){
