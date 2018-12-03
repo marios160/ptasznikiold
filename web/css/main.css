@@ -248,6 +248,10 @@ table a:hover{
     padding: 10px;
     display: table;
 }
+.paginating label {
+    padding: inherit;
+    float: left;
+}
 
 .paginating select{
     width: fit-content;

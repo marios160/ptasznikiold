@@ -3,8 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/ptaszniki/ptaszniki/web/css/main.css</file>
+            <file>file:/C:/ptaszniki/ptaszniki/src/AppBundle/Resources/views/Zdarzenia/show.html.twig</file>
             <file>file:/C:/ptaszniki/ptaszniki/src/AppBundle/Resources/views/Ptaszniki/show.html.twig</file>
             <file>file:/C:/ptaszniki/ptaszniki/src/AppBundle/Controller/PtasznikiController.php</file>
+            <file>file:/C:/ptaszniki/ptaszniki/src/AppBundle/Repository/PtasznikRepository.php</file>
+            <file>file:/C:/ptaszniki/ptaszniki/src/AppBundle/Resources/views/Zdarzenia/add.html.twig</file>
+            <file>file:/C:/ptaszniki/ptaszniki/src/AppBundle/Entity/Karma.php</file>
+            <file>file:/C:/ptaszniki/ptaszniki/src/AppBundle/Entity/Ptasznik.php</file>
+            <file>file:/C:/ptaszniki/ptaszniki/src/AppBundle/Controller/ZdarzeniaController.php</file>
+            <file>file:/C:/ptaszniki/ptaszniki/src/AppBundle/Resources/views/Zdarzenia/addMulti.html.twig</file>
+            <file>file:/C:/ptaszniki/ptaszniki/src/AppBundle/Resources/views/Zdarzenia/addMultiArea.html.twig</file>
         </group>
     </open-files>
 </project-private>
